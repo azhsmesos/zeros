@@ -32,7 +32,9 @@ valeu =
 script = json().parseText(out_settle_param)?.settle_params.collect{it.seller_account_id}
 key = settle_params
 ```
+- 语法
 ```java
 String res = scriptValue(key, script, value);
 // 输出值 res = 1573069417 （seller_account_id）
 ```
+
