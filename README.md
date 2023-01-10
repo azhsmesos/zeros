@@ -3,8 +3,8 @@
 愿景想通过aviator、groovy表达式的方式读取配置中心，实现脚本化
 
 #### groovy方式获取json的某个key
+- value的具体值 其中 `out_settle_param = value`, 下面json数据就是value的值
 ```json
-valeu = 
 {
   "settle_params":[
     {
@@ -28,13 +28,19 @@ valeu =
 }
 ```
 
+- 配置中心配置
 ```json
-script = json().parseText(out_settle_param)?.settle_params.collect{it.seller_account_id}
-key = settle_params
+{
+  "key": "out_settle_param",
+  "script:": "json().parseText(out_settle_param)?.settle_params.collect{it.seller_account_id}"
+}
 ```
 - 语法
+这样就就可以通过配置中心读取脚本配置，获取我们想要的值，目前支持aviator&groovy两种脚本
 ```java
-String res = scriptValue(key, script, value);
-// 输出值 res = 1573069417 （seller_account_id）
+String key = conf.getKey();
+String script = conf.getScript();
+List<Object> res = scriptValueList(key, script, jsonData, null);
+res.forEach(item -> Assert.assertEquals(String.valueOf(item), "1573069417"));
 ```
 
