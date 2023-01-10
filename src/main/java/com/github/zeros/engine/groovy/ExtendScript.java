@@ -8,5 +8,9 @@ import groovy.lang.Script;
  */
 public abstract class ExtendScript extends Script {
 
+    public static Class<?> parse(String script, boolean cached) {
+
+        return null;
+    }
 
 }
