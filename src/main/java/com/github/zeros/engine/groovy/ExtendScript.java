@@ -1,5 +1,6 @@
 package com.github.zeros.engine.groovy;
 
+import groovy.json.JsonSlurper;
 import groovy.lang.Script;
 
 /**
@@ -8,9 +9,15 @@ import groovy.lang.Script;
  */
 public abstract class ExtendScript extends Script {
 
-    public static Class<?> parse(String script, boolean cached) {
+    public JsonSlurper json() {
+        return new JsonSlurper();
+    }
 
-        return null;
+    public boolean sample(String no, int value) {
+        if (no == null) {
+            return false;
+        }
+        return Math.abs(no.hashCode() % 1000) <= value;
     }
 
 }

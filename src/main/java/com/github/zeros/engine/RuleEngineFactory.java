@@ -15,6 +15,7 @@ public class RuleEngineFactory {
 
     static {
         RULE_ENGINE_MAP.put(ScriptType.AVIATOR.getType(), new AviatorRuleEngine());
+        RULE_ENGINE_MAP.put(ScriptType.GROOVY.getType(), new GroovyRuleEngine());
     }
 
     public static RuleEngine getRuleEngine(String scriptType) {
