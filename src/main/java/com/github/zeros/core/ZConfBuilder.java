@@ -21,8 +21,8 @@ public interface ZConfBuilder<T> {
      *               .build();
      * ```
      */
-    public abstract <T2> ZConfBuilder<T2> mapper(ConfigMapper<T, T2> mapper);
+    <T2> ZConfBuilder<T2> mapper(ConfigMapper<T, T2> mapper);
 
-    public ZConf<T> build();
+    ZConf<T> build();
 
 }
