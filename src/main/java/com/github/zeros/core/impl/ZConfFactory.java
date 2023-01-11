@@ -1,11 +1,14 @@
 package com.github.zeros.core.impl;
 
+import static com.github.zeros.core.impl.ZConfBuilderImpl.configBuilder;
+
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
 import com.github.zeros.core.IZConfFactory;
 import com.github.zeros.core.ZConfBuilder;
+import com.github.zeros.core.config.ConfigParsers;
 
 /**
  * @author zhaozhenhang <zhaozhenhang@kuaishou.com>
@@ -24,7 +27,7 @@ public class ZConfFactory implements IZConfFactory {
 
     @Override
     public ZConfBuilder<Integer> ofInteger(String key, int defaultValue) {
-        return null;
+        return ZConfBuilderImpl.configBuilder(key, defaultValue, ConfigParsers.INT_PARSER);
     }
 
     @Override
