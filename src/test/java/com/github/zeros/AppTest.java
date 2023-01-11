@@ -1,6 +1,11 @@
 package com.github.zeros;
 
+import java.util.regex.Pattern;
+
 import org.junit.Test;
+
+import com.github.zeros.core.ZConf;
+import com.github.zeros.core.ZConfs;
 
 /**
  * @author zhaozhenhang <zhaozhenhang@kuaishou.com>
@@ -10,6 +15,8 @@ public class AppTest {
 
     @Test
     public void hello() {
-        System.out.println("azh");
+        ZConf<Pattern> conf = ZConfs.ofString("/tmp/tr", "www.baidu.com")
+                .mapper(Pattern::compile)
+                .build();
     }
 }
