@@ -102,3 +102,11 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 ```
 通过ZConf兜底，防止配置错误程序宕掉
 
+### 新手开发教程
+通过key读取到当前namespace的string值，然后初始化返回
+```java
+ZConf<Pattern> conf = ZConfs.ofString("/tmp/tr", "www.baidu.com")
+                .mapper(Pattern::compile)
+                .build();
+```
+
