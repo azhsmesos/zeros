@@ -1,3 +1,5 @@
 .idea/
 target
 zeros.iml
+zeros-api/target
+zeros-core/target
