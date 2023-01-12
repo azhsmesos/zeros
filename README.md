@@ -7,6 +7,8 @@
 
 - 整体大致工作流程图
 - ![img_1.png](img_1.png)
+- Groovy解析流程
+- ![img_2.png](img_2.png)
 
 #### groovy方式获取json的某个key
 - value的具体值 其中 `out_settle_param = value`, 下面json数据就是value的值
