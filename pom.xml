@@ -3,7 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.zeros</groupId>
   <artifactId>zeros</artifactId>
+  <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
+  <modules>
+    <module>zeros-api</module>
+    <module>zeros-core</module>
+  </modules>
   <name>Archetype - zeros</name>
   <url>http://maven.apache.org</url>
 
@@ -16,48 +21,4 @@
     <maven.compiler.target>11</maven.compiler.target>
   </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13.1</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>2.0.5</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.googlecode.aviator</groupId>
-      <artifactId>aviator</artifactId>
-      <version>5.3.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.groovy</groupId>
-      <artifactId>groovy-all</artifactId>
-      <version>2.4.15</version>
-    </dependency>
-
-    <dependency>
-      <groupId>commons-codec</groupId>
-      <artifactId>commons-codec</artifactId>
-      <version>1.13</version>
-    </dependency>
-
-
-    <dependency>
-      <groupId>com.google.protobuf</groupId>
-      <artifactId>protobuf-java</artifactId>
-      <version>3.7.1</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.google.protobuf</groupId>
-      <artifactId>protobuf-java-util</artifactId>
-      <version>3.7.1</version>
-    </dependency>
-  </dependencies>
 </project>

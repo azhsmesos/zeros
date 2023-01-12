@@ -2,6 +2,12 @@
 
 愿景想通过aviator、groovy表达式的方式读取配置中心，实现脚本化
 
+##### 工具
+- 画图软件：https://excalidraw.com/
+
+- 整体大致工作流程图
+- ![img_1.png](img_1.png)
+
 #### groovy方式获取json的某个key
 - value的具体值 其中 `out_settle_param = value`, 下面json数据就是value的值
 ```json
