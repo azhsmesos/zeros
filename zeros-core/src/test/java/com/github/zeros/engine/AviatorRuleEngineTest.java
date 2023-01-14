@@ -116,20 +116,28 @@ public class AviatorRuleEngineTest {
     @Test
     public void testEval() {
         String key = "data";
-        String script = "json().parseText(json().parseText(data)?.GATEWAY_FUND_BILL?.union_pay_bank_info?:\"{}\")?.bank_short_name";
+        String script = "jsonStrToMap(jsonStrToMap(jsonStrToMap(data)[\"GATEWAY_FUND_BILL\"])[\"union_pay_bank_info\"])[\"bank_short_name\"]";
         String res = scriptValue(key, script, bankInfo, ScriptType.AVIATOR.getType());
-        Assert.assertEquals(res, "招商银行");
+        Assert.assertEquals("招商银行", res);
+    }
+
+    @Test
+    public void testEvalList() {
+        String key = "data";
+        String script = "jsonStrToMap(jsonStrToList(jsonStrToMap(jsonStrToMap(data)[\"CHANNEL_RESPONSE\"])[\"subPayNotifyParams\"])[0])[\"subPayAmount\"]";
+        String res = scriptValue(key, script, bankInfo, ScriptType.AVIATOR.getType());
+        Assert.assertEquals("19194", res);
     }
 
     @Test
     public void testAviator() {
         String email = "killme2008@gmail.com";
-        String script = "email=~/([w0-8]+)@w+[.w+]+/ ? $1 : 'unknow";
+        String script = " email =~ /([\\w0-8]+)@\\w+[\\.\\w+]+/ ? $1 : 'unknow' ";
         Map<String, Object> env = new HashMap<String, Object>();
         env.put("email", email);
         RuleEngine engine = RuleEngineFactory.getRuleEngine(ScriptType.AVIATOR.getType());
         Object username = engine.evalString(script, env);
-        Assert.assertEquals(username, "killme2008"); // killme2008
+        Assert.assertEquals("killme2008", username); // killme2008
     }
 
 }
