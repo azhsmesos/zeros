@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+// 解析json，但是嵌套字段被保留为String，即结果只有一层
 public class ShallowJsonToListFunction extends JsonFunction {
     @Override
     public AviatorObject call(Map<String, Object> env, AviatorObject arg1) {
@@ -19,8 +20,7 @@ public class ShallowJsonToListFunction extends JsonFunction {
         ObjectMapper objectMapper = new ObjectMapper();
         List<Object> values;
         try {
-            //默认情况下，jackson解析两层嵌套，所以需要手动把被解析的第二层转回来
-            List<JsonNode> jsonNodes = objectMapper.readValue(jsonStr, new TypeReference<List<JsonNode>>() {});
+            List<JsonNode> jsonNodes = objectMapper.readValue(jsonStr, new TypeReference<>() {});
             values = jsonNodes.stream().map(node -> convertJsonValue(node, objectMapper)).collect(
                     Collectors.toList());
 

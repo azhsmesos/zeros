@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+// 解析json，但是嵌套字段被保留为String，即结果只有一层
 public class ShallowJsonToMapFunction extends JsonFunction {
     @Override
     public AviatorObject call(Map<String, Object> env, AviatorObject arg1) {
@@ -18,8 +19,7 @@ public class ShallowJsonToMapFunction extends JsonFunction {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<Object, String> valueMap;
         try {
-            //默认情况下，jackson解析两层嵌套，所以需要手动把被解析的第二层转回来
-            Map<String, JsonNode> jsonNodeMap = objectMapper.readValue(jsonStr, new TypeReference<Map<String, JsonNode>>() {});
+            Map<String, JsonNode> jsonNodeMap = objectMapper.readValue(jsonStr, new TypeReference<>() {});
             valueMap = jsonNodeMap.entrySet().stream().collect(
                     Collectors.toMap(
                             Map.Entry::getKey,

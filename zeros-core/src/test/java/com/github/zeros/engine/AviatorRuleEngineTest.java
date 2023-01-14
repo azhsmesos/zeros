@@ -113,6 +113,23 @@ public class AviatorRuleEngineTest {
             + "    \"PROVIDER_PRODUCT\":\"PINGAN_JZB\"\n"
             + "}";
 
+    private String simpleInfo = "{\n" +
+            "  \"name\": \"aaa\",\n" +
+            "  \"id\": 123,\n" +
+            "  \"friend\": {\n" +
+            "    \"name\": \"bbb\",\n" +
+            "    \"sex\": \"girl\",\n" +
+            "    \"parent\": {\n" +
+            "      \"name\": \"ccc\",\n" +
+            "      \"money\": 80.1,\n" +
+            "      \"dog\": {\n" +
+            "        \"name\": \"ddd\",\n" +
+            "        \"isCat\": false\n" +
+            "      }\n" +
+            "    }\n" +
+            "  }\n" +
+            "}";
+
     @Test
     public void testEval() {
         String key = "data";
@@ -122,9 +139,44 @@ public class AviatorRuleEngineTest {
     }
 
     @Test
+    public void testDeepEvalSimple() {
+        String key = "data";
+        String script = "parseJson(data)[\"friend\"][\"parent\"][\"dog\"][\"name\"]";
+        String res = scriptValue(key, script, simpleInfo, ScriptType.AVIATOR.getType());
+        Assert.assertEquals("ddd", res);
+    }
+
+    @Test
+    public void testDeepEvalMid() {
+        String key = "data";
+        String script = "parseJson(data)[\"GATEWAY_FUND_BILL\"][\"union_pay_bank_info\"][\"bank_short_name\"]";
+        String res = scriptValue(key, script, bankInfo, ScriptType.AVIATOR.getType());
+        Assert.assertEquals("招商银行", res);
+    }
+
+    @Test
+    public void testDeepEvalMidWithScript() {
+        String key = "data";
+        String script = "let o1 = parseJson(data);\n" +
+                "let o2 = o1[\"GATEWAY_FUND_BILL\"];\n" +
+                "let o3 = o2[\"union_pay_bank_info\"];\n" +
+                "return o3[\"bank_short_name\"];";
+        String res = scriptValue(key, script, bankInfo, ScriptType.AVIATOR.getType());
+        Assert.assertEquals("招商银行", res);
+    }
+
+    @Test
     public void testEvalList() {
         String key = "data";
         String script = "jsonStrToMap(jsonStrToList(jsonStrToMap(jsonStrToMap(data)[\"CHANNEL_RESPONSE\"])[\"subPayNotifyParams\"])[0])[\"subPayAmount\"]";
+        String res = scriptValue(key, script, bankInfo, ScriptType.AVIATOR.getType());
+        Assert.assertEquals("19194", res);
+    }
+
+    @Test
+    public void testDeepEvalList() {
+        String key = "data";
+        String script = "str(parseJson(data)[\"CHANNEL_RESPONSE\"][\"subPayNotifyParams\"][0][\"subPayAmount\"])";
         String res = scriptValue(key, script, bankInfo, ScriptType.AVIATOR.getType());
         Assert.assertEquals("19194", res);
     }

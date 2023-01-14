@@ -2,6 +2,7 @@ package com.github.zeros.engine;
 
 import java.util.Map;
 
+import com.github.zeros.engine.function.DeepJsonParseFunction;
 import com.github.zeros.engine.function.ShallowJsonToListFunction;
 import com.github.zeros.engine.function.ShallowJsonToMapFunction;
 import com.googlecode.aviator.AviatorEvaluator;
@@ -16,6 +17,7 @@ public class AviatorRuleEngine implements RuleEngine {
     static {
         AviatorEvaluator.addFunction(new ShallowJsonToMapFunction());
         AviatorEvaluator.addFunction(new ShallowJsonToListFunction());
+        AviatorEvaluator.addFunction(new DeepJsonParseFunction());
     }
 
     @Override
