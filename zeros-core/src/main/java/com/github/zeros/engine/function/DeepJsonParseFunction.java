@@ -17,7 +17,7 @@ public class DeepJsonParseFunction extends JsonFunction {
 
     @Override
     public String getName() {
-        return "parseJson";
+        return "parseJsonDeep";
     }
 
     @Override

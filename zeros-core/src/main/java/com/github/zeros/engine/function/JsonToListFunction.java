@@ -12,17 +12,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-// 解析json，但是嵌套字段被保留为String，即结果只有一层
-public class ShallowJsonToListFunction extends JsonFunction {
+// 解析json为list
+public class JsonToListFunction extends JsonFunction {
     @Override
     public AviatorObject call(Map<String, Object> env, AviatorObject arg1) {
         String jsonStr = FunctionUtils.getStringValue(arg1, env);
         ObjectMapper objectMapper = new ObjectMapper();
         List<Object> values;
         try {
-            List<JsonNode> jsonNodes = objectMapper.readValue(jsonStr, new TypeReference<>() {});
-            values = jsonNodes.stream().map(node -> convertJsonValue(node, objectMapper)).collect(
-                    Collectors.toList());
+            values = objectMapper.readValue(jsonStr, new TypeReference<>() {});
+//            List<JsonNode> jsonNodes = objectMapper.readValue(jsonStr, new TypeReference<>() {});
+//            values = jsonNodes.stream().map(node -> convertJsonValue(node, objectMapper)).collect(
+//                    Collectors.toList());
 
         } catch (IOException e) {
             e.printStackTrace();

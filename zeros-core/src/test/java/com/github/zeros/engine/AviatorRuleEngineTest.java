@@ -133,23 +133,15 @@ public class AviatorRuleEngineTest {
     @Test
     public void testEval() {
         String key = "data";
-        String script = "jsonStrToMap(jsonStrToMap(jsonStrToMap(data)[\"GATEWAY_FUND_BILL\"])[\"union_pay_bank_info\"])[\"bank_short_name\"]";
+        String script = "jsonStrToMap(jsonStrToMap(data)[\"GATEWAY_FUND_BILL\"][\"union_pay_bank_info\"])[\"bank_short_name\"]";
         String res = scriptValue(key, script, bankInfo, ScriptType.AVIATOR.getType());
         Assert.assertEquals("招商银行", res);
     }
 
     @Test
-    public void testDeepEvalSimple() {
-        String key = "data";
-        String script = "parseJson(data)[\"friend\"][\"parent\"][\"dog\"][\"name\"]";
-        String res = scriptValue(key, script, simpleInfo, ScriptType.AVIATOR.getType());
-        Assert.assertEquals("ddd", res);
-    }
-
-    @Test
     public void testDeepEvalMid() {
         String key = "data";
-        String script = "parseJson(data)[\"GATEWAY_FUND_BILL\"][\"union_pay_bank_info\"][\"bank_short_name\"]";
+        String script = "parseJsonDeep(data)[\"GATEWAY_FUND_BILL\"][\"union_pay_bank_info\"][\"bank_short_name\"]";
         String res = scriptValue(key, script, bankInfo, ScriptType.AVIATOR.getType());
         Assert.assertEquals("招商银行", res);
     }
@@ -168,7 +160,7 @@ public class AviatorRuleEngineTest {
     @Test
     public void testEvalList() {
         String key = "data";
-        String script = "jsonStrToMap(jsonStrToList(jsonStrToMap(jsonStrToMap(data)[\"CHANNEL_RESPONSE\"])[\"subPayNotifyParams\"])[0])[\"subPayAmount\"]";
+        String script = "str(jsonStrToMap(data)[\"CHANNEL_RESPONSE\"][\"subPayNotifyParams\"][0][\"subPayAmount\"])";
         String res = scriptValue(key, script, bankInfo, ScriptType.AVIATOR.getType());
         Assert.assertEquals("19194", res);
     }

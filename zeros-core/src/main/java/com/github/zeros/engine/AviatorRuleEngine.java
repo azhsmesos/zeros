@@ -3,8 +3,8 @@ package com.github.zeros.engine;
 import java.util.Map;
 
 import com.github.zeros.engine.function.DeepJsonParseFunction;
-import com.github.zeros.engine.function.ShallowJsonToListFunction;
-import com.github.zeros.engine.function.ShallowJsonToMapFunction;
+import com.github.zeros.engine.function.JsonToListFunction;
+import com.github.zeros.engine.function.JsonToMapFunction;
 import com.googlecode.aviator.AviatorEvaluator;
 import com.googlecode.aviator.Expression;
 
@@ -15,8 +15,8 @@ import com.googlecode.aviator.Expression;
 public class AviatorRuleEngine implements RuleEngine {
 
     static {
-        AviatorEvaluator.addFunction(new ShallowJsonToMapFunction());
-        AviatorEvaluator.addFunction(new ShallowJsonToListFunction());
+        AviatorEvaluator.addFunction(new JsonToMapFunction());
+        AviatorEvaluator.addFunction(new JsonToListFunction());
         AviatorEvaluator.addFunction(new DeepJsonParseFunction());
     }
 
