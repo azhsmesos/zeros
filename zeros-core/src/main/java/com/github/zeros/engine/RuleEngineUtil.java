@@ -12,11 +12,11 @@ import com.github.zeros.util.enums.ScriptType;
  */
 public class RuleEngineUtil {
 
-    public static String scriptValue(String key, String script, String value, String type) {
+    public static String scriptValue(String key, String script, String value, ScriptType type) {
         return (String) evalString(key, script, value, type);
     }
 
-    public static List<Object> scriptValueList(String key, String script, String value, String type) {
+    public static List<Object> scriptValueList(String key, String script, String value, ScriptType type) {
         if (value == null || value.length() == 0) {
             return new ArrayList<>();
         }
@@ -26,13 +26,13 @@ public class RuleEngineUtil {
         return castList(o, Object.class);
     }
 
-    private static Object evalString(String key, String script, String value, String type) {
+    private static Object evalString(String key, String script, String value, ScriptType type) {
         Map<String, Object> env = new HashMap<>();
         if (type == null) {
-            type = ScriptType.GROOVY.getType();
+            type = ScriptType.GROOVY;
         }
 
-        RuleEngine engine = RuleEngineFactory.getRuleEngine(type);
+        RuleEngine engine = RuleEngineFactory.getRuleEngine(type.getType());
         env.put(key, value);
 
         return engine.evalString(script, env);
