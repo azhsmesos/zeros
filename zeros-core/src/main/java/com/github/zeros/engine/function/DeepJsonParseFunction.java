@@ -61,21 +61,17 @@ public class DeepJsonParseFunction extends JsonFunction {
         // value如果是map类的，前面肯定解析过了
         if (value instanceof Map) {
             if (value instanceof LazyAviatorRuntimeMap) {
-                LazyAviatorRuntimeMap<String, Object> lazyMap = (LazyAviatorRuntimeMap<String, Object>) value;
-                return lazyMap;
+                return value;
             }
-            LazyAviatorRuntimeMap<String, Object> lazyMap = newLazyAviatorRuntimeMap((Map<String, Object>) value, this::analyzeSubNode);
-            return lazyMap;
+            return newLazyAviatorRuntimeMap((Map<String, Object>) value, this::analyzeSubNode);
         }
 
         // 同样的，list类也是前面解析过了
         if (value instanceof List) {
             if (value instanceof LazyAviatorRuntimeList) {
-                LazyAviatorRuntimeList lazyList = (LazyAviatorRuntimeList) value;
-                return lazyList;
+                return value;
             }
-            LazyAviatorRuntimeList<Object> lazyList = newLazyAviatorRuntimeList((List<Object>) value, this::analyzeSubNode);
-            return lazyList;
+            return newLazyAviatorRuntimeList((List<Object>) value, this::analyzeSubNode);
         }
 
         String jsonStr = value.toString();
@@ -89,12 +85,10 @@ public class DeepJsonParseFunction extends JsonFunction {
 
         // 列表类型，解析一层
         if (jsonType == JsonType.JSON_ARRAY) {
-            List<Object> valueList = mapper.readValue(jsonStr, new TypeReference<>() {});
-            return valueList;
+            return mapper.<List<Object>> readValue(jsonStr, new TypeReference<>() {});
         }
         // 需要解析下层
-        Map<String, Object> valueMap = mapper.readValue(jsonStr, new TypeReference<>() {});
-        return valueMap;
+        return mapper.<Map<String, Object>> readValue(jsonStr, new TypeReference<>() {});
     }
 
     private LazyAviatorRuntimeMap<String, Object> newLazyAviatorRuntimeMap(Map<String, Object> valueMap, IAnalyzeJsonSubNodeFunction analyzeFunction) {
@@ -109,7 +103,7 @@ public class DeepJsonParseFunction extends JsonFunction {
         return lazyList;
     }
 
-    private class LazyAviatorRuntimeMap<K extends String, V extends Object> extends LinkedHashMap<String, Object> {
+    private static class LazyAviatorRuntimeMap<K extends String, V extends Object> extends LinkedHashMap<String, Object> {
         LinkedHashMap<String,Object> analyzedMap = new LinkedHashMap<>();
         IAnalyzeJsonSubNodeFunction analyzeFunction;
 
@@ -150,7 +144,7 @@ public class DeepJsonParseFunction extends JsonFunction {
         }
     }
 
-    private class LazyAviatorRuntimeList<K extends Object> extends ArrayList<Object> {
+    private static class LazyAviatorRuntimeList<K extends Object> extends ArrayList<Object> {
         LinkedHashMap<Integer,Object> analyzedMap = new LinkedHashMap<>();
         IAnalyzeJsonSubNodeFunction analyzeFunction;
 

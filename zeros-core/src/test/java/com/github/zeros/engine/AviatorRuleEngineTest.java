@@ -134,7 +134,7 @@ public class AviatorRuleEngineTest {
     public void testEval() {
         String key = "data";
         String script = "jsonStrToMap(jsonStrToMap(data)[\"GATEWAY_FUND_BILL\"][\"union_pay_bank_info\"])[\"bank_short_name\"]";
-        String res = scriptValue(key, script, bankInfo, ScriptType.AVIATOR.getType());
+        String res = scriptValue(key, script, bankInfo, ScriptType.AVIATOR);
         Assert.assertEquals("招商银行", res);
     }
 
@@ -142,7 +142,7 @@ public class AviatorRuleEngineTest {
     public void testDeepEvalMid() {
         String key = "data";
         String script = "parseJsonDeep(data)[\"GATEWAY_FUND_BILL\"][\"union_pay_bank_info\"][\"bank_short_name\"]";
-        String res = scriptValue(key, script, bankInfo, ScriptType.AVIATOR.getType());
+        String res = scriptValue(key, script, bankInfo, ScriptType.AVIATOR);
         Assert.assertEquals("招商银行", res);
     }
 
@@ -153,7 +153,7 @@ public class AviatorRuleEngineTest {
                 "let o2 = o1[\"GATEWAY_FUND_BILL\"];\n" +
                 "let o3 = o2[\"union_pay_bank_info\"];\n" +
                 "return o3[\"bank_short_name\"];";
-        String res = scriptValue(key, script, bankInfo, ScriptType.AVIATOR.getType());
+        String res = scriptValue(key, script, bankInfo, ScriptType.AVIATOR);
         Assert.assertEquals("招商银行", res);
     }
 
@@ -161,7 +161,7 @@ public class AviatorRuleEngineTest {
     public void testEvalList() {
         String key = "data";
         String script = "str(jsonStrToMap(data)[\"CHANNEL_RESPONSE\"][\"subPayNotifyParams\"][0][\"subPayAmount\"])";
-        String res = scriptValue(key, script, bankInfo, ScriptType.AVIATOR.getType());
+        String res = scriptValue(key, script, bankInfo, ScriptType.AVIATOR);
         Assert.assertEquals("19194", res);
     }
 
@@ -169,7 +169,7 @@ public class AviatorRuleEngineTest {
     public void testDeepEvalList() {
         String key = "data";
         String script = "str(parseJson(data)[\"CHANNEL_RESPONSE\"][\"subPayNotifyParams\"][0][\"subPayAmount\"])";
-        String res = scriptValue(key, script, bankInfo, ScriptType.AVIATOR.getType());
+        String res = scriptValue(key, script, bankInfo, ScriptType.AVIATOR);
         Assert.assertEquals("19194", res);
     }
 
