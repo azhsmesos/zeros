@@ -2,6 +2,9 @@ package com.github.zeros.engine;
 
 import java.util.Map;
 
+import com.github.zeros.engine.function.DeepJsonParseFunction;
+import com.github.zeros.engine.function.JsonToListFunction;
+import com.github.zeros.engine.function.JsonToMapFunction;
 import com.googlecode.aviator.AviatorEvaluator;
 import com.googlecode.aviator.Expression;
 
@@ -10,6 +13,12 @@ import com.googlecode.aviator.Expression;
  * Created on 2023-01-10
  */
 public class AviatorRuleEngine implements RuleEngine {
+
+    static {
+        AviatorEvaluator.addFunction(new JsonToMapFunction());
+        AviatorEvaluator.addFunction(new JsonToListFunction());
+        AviatorEvaluator.addFunction(new DeepJsonParseFunction());
+    }
 
     @Override
     public Boolean eval(String ruleScript, Map<String, Object> data) {
