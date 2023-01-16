@@ -32,7 +32,7 @@ public class ZConfFactory implements IZConfFactory {
 
     @Override
     public ZConfBuilder<Long> ofLong(String key, long defaultValue) {
-        return null;
+        return ZConfBuilderImpl.configBuilder(key, defaultValue, ConfigParsers.LONG_PARSER);
     }
 
     @Override
