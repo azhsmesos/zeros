@@ -1,0 +1,58 @@
+spring:
+  application:
+    name: zeros-12306
+  datasource:
+    name: root
+    jdbc-url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF8
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  datasource-master:
+    jdbc-url: jdbc:mysql://localhost:3306/test1?characterEncoding=UTF-8&useSSL=false&useUnicode=true&connectTimeout=1000&socketTimeout=60000&allowMultiQueries=true&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  datasource-slave:
+      type: com.zaxxer.hikari.HikariDataSource
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/test1?characterEncoding=UTF-8&useSSL=false&useUnicode=true&connectTimeout=1000&socketTimeout=60000&allowMultiQueries=true&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      username: root
+      password: root
+  datasource-order:
+      type: com.zaxxer.hikari.HikariDataSource
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/train_order?characterEncoding=UTF-8&useSSL=false&useUnicode=true&connectTimeout=1000&socketTimeout=60000&allowMultiQueries=true&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      username: root
+      password: root
+  datasource-seat-one:
+      type: com.zaxxer.hikari.HikariDataSource
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/train_seat_1?characterEncoding=UTF-8&useSSL=false&useUnicode=true&connectTimeout=1000&socketTimeout=60000&allowMultiQueries=true&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      username: root
+      password: root
+  datasource-seat-two:
+      type: com.zaxxer.hikari.HikariDataSource
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/train_seat_2?characterEncoding=UTF-8&useSSL=false&useUnicode=true&connectTimeout=1000&socketTimeout=60000&allowMultiQueries=true&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      username: root
+      password: root
+  datasource-seat-three:
+      type: com.zaxxer.hikari.HikariDataSource
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/train_seat_3?characterEncoding=UTF-8&useSSL=false&useUnicode=true&connectTimeout=1000&socketTimeout=60000&allowMultiQueries=true&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      username: root
+      password: root
+  datasource-seat-four:
+      type: com.zaxxer.hikari.HikariDataSource
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/train_seat_4?characterEncoding=UTF-8&useSSL=false&useUnicode=true&connectTimeout=1000&socketTimeout=60000&allowMultiQueries=true&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      username: root
+      password: root
+  datasource-seat-five:
+      type: com.zaxxer.hikari.HikariDataSource
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/train_seat_5?characterEncoding=UTF-8&useSSL=false&useUnicode=true&connectTimeout=1000&socketTimeout=60000&allowMultiQueries=true&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      username: root
+      password: root
