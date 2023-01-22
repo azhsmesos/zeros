@@ -41,11 +41,11 @@ public class TrainStationController {
         List<TrainStationView> viewList = stationList
                 .stream()
                 .map(station -> TrainStationView.builder()
-                .id(station.getId())
-                .name(station.getName())
-                .cityId(station.getCityId())
-                .cityName(cityMap.get(station.getCityId()))
-                .build())
+                        .id(station.getId())
+                        .name(station.getName())
+                        .cityId(station.getCityId())
+                        .cityName(cityMap.get(station.getCityId()))
+                        .build())
                 .collect(Collectors.toList());
         return CommonDataView.success(viewList);
     }
