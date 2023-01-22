@@ -71,6 +71,10 @@ public class CommonDataView<T> extends CommonView {
         return CommonDataView.ofMsg(errorInfo.getResult(), errorInfo.getMessage());
     }
 
+    public static <T> CommonDataView<T> success() {
+        return new CommonDataView<>(ErrorCode.SUCCESS);
+    }
+
     public T getData() {
         return data;
     }
