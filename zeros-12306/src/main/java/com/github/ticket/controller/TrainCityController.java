@@ -14,6 +14,7 @@ import com.github.ticket.model.TrainCity;
 import com.github.ticket.param.TrainCityParam;
 import com.github.ticket.service.TrainCityService;
 import com.github.ticket.util.BeanValidator;
+import com.github.ticket.util.ErrorCode;
 import com.github.ticket.util.exception.BusinessException;
 
 /**
@@ -37,7 +38,7 @@ public class TrainCityController {
         BeanValidator.check(param);
         boolean insert = trainCityService.save(param);
         if (!insert) {
-            throw new BusinessException("插入失败");
+            return CommonDataView.ofMsg(ErrorCode.SYSTEM_ERROR, "插入失败");
         }
         return CommonDataView.success();
     }
@@ -47,7 +48,7 @@ public class TrainCityController {
         BeanValidator.check(param);
         boolean update = trainCityService.update(param);
         if (!update) {
-            throw new BusinessException("更新失败");
+            return CommonDataView.ofMsg(ErrorCode.SYSTEM_ERROR, "更新失败");
         }
         return CommonDataView.success();
     }

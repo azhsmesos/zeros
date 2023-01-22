@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.ticket.model.CommonDataView;
 import com.github.ticket.model.TrainCity;
 import com.github.ticket.model.TrainStation;
+import com.github.ticket.param.TrainStationParam;
 import com.github.ticket.service.TrainCityService;
 import com.github.ticket.service.TrainStationService;
+import com.github.ticket.util.BeanValidator;
+import com.github.ticket.util.ErrorCode;
 import com.github.ticket.view.TrainStationView;
 
 /**
@@ -51,12 +54,22 @@ public class TrainStationController {
     }
 
     @PostMapping("/save")
-    public CommonDataView<TrainCity> save() {
+    public CommonDataView<TrainCity> save(TrainStationParam param) {
+        BeanValidator.check(param);
+        boolean save = trainStationService.save(param);
+        if (!save) {
+            return CommonDataView.ofMsg(ErrorCode.SYSTEM_ERROR, "插入失败");
+        }
         return CommonDataView.success();
     }
 
     @PostMapping("/update")
-    public CommonDataView<TrainCity> update() {
+    public CommonDataView<TrainCity> update(TrainStationParam param) {
+        BeanValidator.check(param);
+        boolean update = trainStationService.update(param);
+        if (!update) {
+            return CommonDataView.ofMsg(ErrorCode.SYSTEM_ERROR, "更新失败");
+        }
         return CommonDataView.success();
     }
 }
