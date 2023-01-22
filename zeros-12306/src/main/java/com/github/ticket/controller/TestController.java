@@ -22,7 +22,7 @@ import com.github.ticket.util.db.DataSources;
 @RestController
 public class TestController {
 
-    @Resource(name = "seatDBTemplate")
+    @Resource(name = "resourceJdbcTemplate")
     private JdbcTemplate jdbcTemplate;
 
 
