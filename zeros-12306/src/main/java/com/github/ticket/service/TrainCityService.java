@@ -3,6 +3,7 @@ package com.github.ticket.service;
 import java.util.List;
 
 import com.github.ticket.model.TrainCity;
+import com.github.ticket.param.TrainCityParam;
 
 /**
  * @author zhaozhenhang <zhaozhenhang@kuaishou.com>
@@ -10,5 +11,9 @@ import com.github.ticket.model.TrainCity;
  */
 public interface TrainCityService {
 
-    public List<TrainCity> getAllCity();
+    List<TrainCity> getAllCity();
+
+    boolean save(TrainCityParam param);
+
+    boolean update(TrainCityParam param);
 }
