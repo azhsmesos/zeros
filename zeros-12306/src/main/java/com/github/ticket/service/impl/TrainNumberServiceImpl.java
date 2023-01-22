@@ -23,4 +23,9 @@ public class TrainNumberServiceImpl implements TrainNumberService {
     public List<TrainNumber> getAllNumber() {
         return trainNumberDAO.getAllNumber();
     }
+
+    @Override
+    public List<TrainNumber> queryNumberInIds(List<Integer> ids) {
+        return trainNumberDAO.queryNumberInIds(ids);
+    }
 }

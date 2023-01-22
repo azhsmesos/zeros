@@ -1,9 +1,7 @@
 package com.github.ticket;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -14,7 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class Application {
 
-    // Part3
+    // Part3 城市管理 18：06
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }

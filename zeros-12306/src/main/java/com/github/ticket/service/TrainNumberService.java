@@ -11,4 +11,6 @@ import com.github.ticket.model.TrainNumber;
 public interface TrainNumberService {
 
     List<TrainNumber> getAllNumber();
+
+    List<TrainNumber> queryNumberInIds(List<Integer> ids);
 }
