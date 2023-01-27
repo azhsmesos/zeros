@@ -14,8 +14,11 @@ import com.github.ticket.model.CommonDataView;
 import com.github.ticket.model.TrainCity;
 import com.github.ticket.model.TrainNumber;
 import com.github.ticket.model.TrainStation;
+import com.github.ticket.param.TrainNumberParam;
 import com.github.ticket.service.TrainNumberService;
 import com.github.ticket.service.TrainStationService;
+import com.github.ticket.util.BeanValidator;
+import com.github.ticket.util.ErrorCode;
 import com.github.ticket.view.TrainNumberView;
 
 /**
@@ -58,12 +61,22 @@ public class TrainNumberController {
     }
 
     @PostMapping("/save")
-    public CommonDataView<TrainCity> save() {
+    public CommonDataView<TrainCity> save(TrainNumberParam param) {
+        BeanValidator.check(param);
+        boolean save = trainNumberService.save(param);
+        if (!save) {
+            return CommonDataView.ofMsg(ErrorCode.SYSTEM_ERROR, "插入失败");
+        }
         return CommonDataView.success();
     }
 
     @PostMapping("/update")
-    public CommonDataView<TrainCity> update() {
+    public CommonDataView<TrainCity> update(TrainNumberParam param) {
+        BeanValidator.check(param);
+        boolean update = trainNumberService.update(param);
+        if (!update) {
+            return CommonDataView.ofMsg(ErrorCode.SYSTEM_ERROR, "更新失败");
+        }
         return CommonDataView.success();
     }
 }
