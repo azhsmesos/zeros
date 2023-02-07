@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class Application {
 
-    // Part3 车次管理 10:25
+    // Part3 车次详情
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }

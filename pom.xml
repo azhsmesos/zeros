@@ -9,6 +9,7 @@
     <module>zeros-api</module>
     <module>zeros-core</module>
       <module>zeros-12306</module>
+      <module>zeros-async</module>
   </modules>
   <name>Archetype - zeros</name>
   <url>http://maven.apache.org</url>
