@@ -11,7 +11,7 @@ import com.github.zeros.core.Wrapper;
 @FunctionalInterface
 public interface IWorker<T, F> {
 
-    F apply(T object, Map<String, Wrapper> wrapperMap);
+    F apply(T object, Map<String, Wrapper<T, F>> wrapperMap);
 
     default F defautValue() {
         return null;
