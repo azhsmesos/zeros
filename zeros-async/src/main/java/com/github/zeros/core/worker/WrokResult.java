@@ -25,4 +25,28 @@ public class WrokResult<F> {
     public static <F> WrokResult<F> defaultResult() {
         return new WrokResult<>(null, State.DEFAULT);
     }
+
+    public F getResult() {
+        return result;
+    }
+
+    public void setResult(F result) {
+        this.result = result;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public Exception getException() {
+        return exception;
+    }
+
+    public void setException(Exception exception) {
+        this.exception = exception;
+    }
 }

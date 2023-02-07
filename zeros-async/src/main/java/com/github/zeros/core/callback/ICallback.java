@@ -13,5 +13,8 @@ public interface ICallback<T, F> {
 
     }
 
+    /**
+     * 完成后给value注入值
+     */
     void complete(boolean success, T param, WrokResult<F> res);
 }

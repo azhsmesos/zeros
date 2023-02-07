@@ -49,7 +49,7 @@ public class Asyncstarter {
         Map<String, Wrapper<?, ?>> allUseWrappers = new ConcurrentHashMap<>();
         List<CompletableFuture<Void>> completableFutureList = new ArrayList<>();
         wrappers.forEach(wrapper -> {
-            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> wrapper.work(executorService, timeout, allUseWrappers), executorService);
+            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> wrapper.worker(executorService, timeout, allUseWrappers), executorService);
             future.whenComplete(((BiConsumer<Object, Throwable>) (o, throwable) -> System.out.println("wrapper: [" + wrapper.getId()+ "] 执行成功")));
             future.exceptionally(throwable -> {
                 System.out.println("wrapper: [" + wrapper.getId() + "] 执行失败");
