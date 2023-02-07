@@ -10,6 +10,10 @@ public class Wrappers {
 
     private Wrappers(){}
 
+    public static <T, F> Builder<T, F> newBuilder(Class<T> t, Class<F> f) {
+        return new Builder<>();
+    }
+
     public static <T, F> Builder<T, F> newBuilder() {
         return new Builder<>();
     }
