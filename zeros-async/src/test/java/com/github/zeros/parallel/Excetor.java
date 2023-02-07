@@ -18,15 +18,28 @@ public class Excetor {
 
     @Test
     public void testWrappers() throws Exception {
-        // 缺点 只能返回Object范形
+
+        Worker1 worker1 = new Worker1();
+        Worker2 worker2 = new Worker2();
+        Worker3 worker3 = new Worker3();
+
         Wrapper<String, String> wrapper = Wrappers.newBuilder(String.class, String.class)
-//                .work(w1)
+                .id("1")
+                .worker(worker1)
                 .build();
 
-        // 缺点：需要使用new关键字，无业务美感
-        Wrapper<String, String> wrapper2 = new Builder<String, String>().build();
+        Wrapper<String, String> wrapper2 = Wrappers.newBuilder(String.class, String.class)
+                .id("2")
+                .worker(worker2)
+                .build();
 
-        boolean success = Asyncstarter.starter(3000, wrapper, wrapper2);
+        Wrapper<String, String> wrapper3 = Wrappers.newBuilder(String.class, String.class)
+                .id("3")
+                .worker(worker3)
+//                .next(wrapper2)
+                .build();
+
+        boolean success = Asyncstarter.starter(3000, wrapper, wrapper2, wrapper3);
         Assert.assertTrue(success);
     }
 }
