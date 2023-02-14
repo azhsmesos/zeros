@@ -36,7 +36,7 @@ public class Excetor {
         Wrapper<String, String> wrapper3 = Wrappers.newBuilder(String.class, String.class)
                 .id("3")
                 .worker(worker3)
-//                .next(wrapper2)
+                .next(wrapper2)
                 .build();
 
         boolean success = Asyncstarter.starter(3000, wrapper, wrapper2, wrapper3);
