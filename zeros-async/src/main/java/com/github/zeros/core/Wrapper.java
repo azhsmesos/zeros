@@ -81,7 +81,7 @@ public class Wrapper<T, F> {
 
 
     public void worker(ExecutorService executorService, long remainTime, Map<String, Wrapper<?, ?>> wrapperMap) {
-
+        worker(executorService, null, remainTime, wrapperMap);
     }
 
     private void worker(ExecutorService executorService, Wrapper<?, ?> wrapper, long remainTime, Map<String, Wrapper<?, ?>> wrapperMap) {
@@ -101,7 +101,72 @@ public class Wrapper<T, F> {
             return;
         }
 
-        // todo  到zheer
+        // 执行前需要校验nextWrapper执行结果
+        if (needCheckNextWrapperResult) {
+            if (!checkNextWrapperResult()) {
+                failFast(INIT, new Exception("该任务被跳过了"));
+                nextTask(executorService, now, remainTime);
+                return;
+            }
+        }
+
+        // 没任何依赖
+        if (dependWrappers == null || dependWrappers.size() == 0) {
+            job();
+            nextTask(executorService, now, remainTime);
+            return;
+        }
+
+        /*
+            有依赖两种情况
+            1. 只有一个依赖
+            2. 有多个依赖 比如 A B C -> D需要ABC执行完才行，比如A B C -> D 只需要ABC其中一个执行完成就行
+         */
+        if (dependWrappers.size() == 1) {
+            // todo
+        } else {
+
+        }
+    }
+
+    /**
+     * 执行自己job，具体执行是其他线程，判断超时在work线程
+     */
+    private void job() {
+        wrokResult = doJob();
+    }
+
+    private WrokResult<F> doJob() {
+        if (!checkIsNullResult()) {
+            return wrokResult;
+        }
+
+        // 如果不是init状态，说明执行完毕或者正在执行中，避免重复执行
+        if (!this.state.compareAndSet(INIT, WORKING)) {
+            return wrokResult;
+        }
+        callback.listening();
+
+        F value = worker.apply(param, wrapperMap);
+
+        if (!this.state.compareAndSet(WORKING, FINISH)) {
+            return wrokResult;
+        }
+
+        wrokResult.setState(State.SUCCESS);
+        wrokResult.setResult(value);
+
+        callback.complete(true, param, wrokResult);
+        return wrokResult;
+    }
+
+    private void doDependsOneJob(Wrapper<?, ?> wrapper) {
+        if (State.TIMEOUT == wrapper.getWrokResult().getState()) {
+            wrokResult = defaultResult();
+            failFast(INIT, null);
+        } else if (State.EXCEPTION == wrapper.getWrokResult().getState()) {
+            // todo 判断是否异常 是否需要failFast
+        }
     }
 
     private int getState() {
@@ -130,6 +195,19 @@ public class Wrapper<T, F> {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 判断自己下游链路上，是否存在执行完成或者还在执行的
+     * 如果没有返回true，有就返回false
+     */
+    private boolean checkNextWrapperResult() {
+        if (nextWrappers == null || nextWrappers.size() != 1) {
+            return getState() == INIT;
+        }
+        Wrapper<?, ?> nextWrapper = nextWrappers.get(0);
+        boolean state = nextWrapper.getState() == INIT;
+        return state && nextWrapper.checkNextWrapperResult();
     }
 
     private boolean failFast(int expect, Exception e) {
@@ -174,6 +252,14 @@ public class Wrapper<T, F> {
 
     private void setNeedCheckNextWrapperResult(boolean needCheckNextWrapperResult) {
         this.needCheckNextWrapperResult = needCheckNextWrapperResult;
+    }
+
+    public WrokResult<F> getWrokResult() {
+        return wrokResult;
+    }
+
+    public void setWrokResult(WrokResult<F> wrokResult) {
+        this.wrokResult = wrokResult;
     }
 
     public static class Builder<K, V> {

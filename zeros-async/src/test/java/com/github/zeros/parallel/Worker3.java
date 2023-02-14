@@ -20,7 +20,7 @@ public class Worker3 implements IWorker<String, String>, ICallback<String, Strin
     }
 
     @Override
-    public String apply(String object, Map<String, Wrapper<String, String>> stringWrapperMap) {
+    public String apply(String object, Map<String, Wrapper<?, ?>> stringWrapperMap) {
         return "--worker3--";
     }
 }
