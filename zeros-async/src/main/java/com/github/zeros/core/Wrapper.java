@@ -231,13 +231,13 @@ public class Wrapper<T, F> {
 
     private WrokResult<F> defaultResult() {
         wrokResult.setState(State.TIMEOUT);
-        wrokResult.setResult(worker.defautValue());
+        wrokResult.setResult(worker.defaultValue());
         return wrokResult;
     }
 
     private WrokResult<F> defaultExResult(Exception e) {
         wrokResult.setState(State.EXCEPTION);
-        wrokResult.setResult(worker.defautValue());
+        wrokResult.setResult(worker.defaultValue());
         wrokResult.setException(e);
         return wrokResult;
     }

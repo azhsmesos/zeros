@@ -13,7 +13,7 @@ public interface IWorker<T, F> {
 
     F apply(T object, Map<String, Wrapper<?, ?>> wrapperMap);
 
-    default F defautValue() {
+    default F defaultValue() {
         return null;
     }
 }

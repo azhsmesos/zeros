@@ -1,0 +1,37 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor 业务系统 as user
+participant 非支付链路 as order_fund
+participant 支付链路 as order
+participant 支付核心 as core
+participant 风控系统 as func
+participant 渠道系统 as channel
+
+
+order -> order: 扫描processing的分账单
+order -> core: 查询补差
+alt 含有补差
+order -> core: 调核心申请补差
+activate core
+core -> channel: 调渠道申请补差
+activate channel
+channel -> core: 渠道返回补差结果
+deactivate channel
+core -> order: 补差结果
+deactivate core
+else 没有补差
+order -> core: 查核心分账
+core -> order: 返回分账结果
+
+alt 核心分账成功
+order -> order: 更新分账状态为SUCCESS
+else 核心分账失败
+order -> order: 创建补差撤销单
+order -> order: 回滚paySettle，更新分账状态为FAILED
+end
+end
+order -> order: task结束
+@enduml

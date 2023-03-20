@@ -1,0 +1,50 @@
+
+
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor 业务系统 as user
+participant 订单系统 as order
+participant 支付核心 as core
+participant 渠道系统 as channel
+
+user -> order: 发起分账
+
+activate order
+alt 如果是平安见证宝
+order -> core: 查清算结果
+activate core
+core -> order: 返回结果
+deactivate core
+end
+
+order -> order: 业务规则校验
+
+
+alt 含有补差
+order -> core: 申请补差
+activate core
+core -> channel: 渠道申请补差
+activate channel
+channel -> core: 渠道返回补差结果
+core -> core: 记账
+deactivate channel
+core -> order: 返回更新后的补差结果
+deactivate core
+end
+order -> core: 调核心申请分账
+activate core
+core -> core: 记账、落库
+core -> channel: 调渠道申请分账
+activate channel
+channel -> core: 返回分账结果
+deactivate channel
+core -> order: 分账结束
+deactivate core
+
+
+
+
+@enduml

@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor 业务系统 as user
+participant 非支付链路 as order_fund
+participant 支付链路 as order
+participant 支付核心 as core
+participant 风控系统 as func
+participant 渠道系统 as channel
+
+
+user -> order_fund: 发起分账回退
+order_fund ->> order_fund: 参数校验
+activate order_fund
+deactivate order_fund
+order_fund -> order:  查询支付订单信息
+order_fund ->> order_fund: 业务查重
+activate order_fund
+deactivate order_fund
+
+order_fund -> order_fund: 查分账回退单
+alt 分账回退记录存在
+order_fund -> user: 返回分账回退结果
+else 分账回退记录不存在
+order_fund -> order_fund: 业务规则校验
+deactivate order_fund
+alt order-fund 业务规则校验
+order_fund -> order_fund: 是否走过注销提现
+order_fund -> order_fund: 校验分账订单是否存在
+order_fund -> order_fund: 仅仅支持灵活分账和合并分账退分账
+order_fund -> order_fund: 平安二清针对判断是否有卖家成功
+end
+
+order_fund -> order_fund: 插入分账回退表和分账回退字表记录
+order_fund -> core: 查核心core_royalty_return，如果不存在就插入
+core -> core: 申请记账，查记账状态
+core -> core: 插入退分账子表
+core -> channel: 请求入库
+channel -> core: 返回结果
+core -> order_fund: 返回退分账结果
+order_fund -> user: 响应业务
+end
+
+@enduml

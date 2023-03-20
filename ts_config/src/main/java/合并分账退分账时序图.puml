@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor 业务系统 as user
+participant 订单系统 as order
+participant 支付核心 as core
+participant 风控系统 as func
+participant 渠道系统 as channel
+
+user -> order: 发起退分账
+activate order
+
+
+deactivate order
+@enduml
